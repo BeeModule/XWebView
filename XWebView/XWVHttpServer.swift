@@ -74,7 +74,7 @@ class XWVHttpServer : NSObject {
             sin_addr: in_addr(s_addr: UInt32(0x7f000001).bigEndian),
             sin_zero: (0, 0, 0, 0, 0, 0, 0, 0))
         let data = Data(bytes: &sockaddr, count: MemoryLayout<sockaddr_in>.size)
-        guard CFSocketSetAddress(socket, data as CFData!) == CFSocketError.success else {
+        guard CFSocketSetAddress(socket, data as CFData) == CFSocketError.success else {
             log("!Failed to listen on port \(port) \(String(cString: strerror(errno)))")
             CFSocketInvalidate(socket)
             return false
